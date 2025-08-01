@@ -2,53 +2,939 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Dmytro Ovcharov – Webdesign & Entwicklung</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <title>Max Weber | Full-Stack Entwickler & KI-Spezialist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00eeff;
+            --secondary: #ff00c8;
+            --accent: #9600ff;
+            --dark: #0a0a16;
+            --darker: #050510;
+            --text: #e0e0ff;
+            --card-bg: rgba(20, 20, 40, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 238, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 200, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 10%, rgba(150, 0, 255, 0.1) 0%, transparent 30%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(10, 10, 22, 0.7);
+            border-bottom: 1px solid rgba(0, 238, 255, 0.1);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 3s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 5px rgba(0, 238, 255, 0.3); }
+            100% { text-shadow: 0 0 20px rgba(0, 238, 255, 0.7), 0 0 30px rgba(255, 0, 200, 0.5); }
+        }
+
+        .typed-text {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            height: 2.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Services Section */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 70px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 238, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            z-index: -1;
+            border-radius: 17px;
+            animation: rotateBorder 6s linear infinite;
+        }
+
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            line-height: 1.6;
+            color: #b0b0ff;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 238, 255, 0.1);
+        }
+
+        .skill-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .skill {
+            background: rgba(0, 238, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .skill:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 238, 255, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 238, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 238, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(20, 20, 40, 0.7);
+            border: 1px solid rgba(0, 238, 255, 0.2);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 238, 255, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(5, 5, 16, 0.9);
+            padding: 40px 0 20px;
+            border-top: 1px solid rgba(0, 238, 255, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(0, 238, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #a0a0d0;
+        }
+
+        /* Floating Elements */
+        .floating {
+            position: absolute;
+            animation: floatElement 15s infinite ease-in-out;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        .floating.shape1 {
+            top: 20%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary), transparent 70%);
+            animation-delay: 0s;
+        }
+
+        .floating.shape2 {
+            top: 50%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            background: radial-gradient(circle, var(--secondary), transparent 70%);
+            animation-delay: -5s;
+        }
+
+        .floating.shape3 {
+            bottom: 20%;
+            left: 15%;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent), transparent 70%);
+            animation-delay: -10s;
+        }
+
+        @keyframes floatElement {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-40px) rotate(10deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="hero">
-        <div class="overlay"></div>
-        <div class="content">
-            <div class="avatar-placeholder"></div>
-            <h1>Dmytro Ovcharov</h1>
-            <p>Webdesign, App-Entwicklung & digitale Innovation</p>
-            <a href="#services" class="cta">Mehr erfahren</a>
-        </div>
-    </div>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating shape1"></div>
+    <div class="floating shape2"></div>
+    <div class="floating shape3"></div>
 
-    <section id="services" class="services">
-        <h2>Unsere Leistungen</h2>
-        <div class="service-list">
-            <div class="service">
-                <h3>🌐 Webseiten</h3>
-                <p>Modernes Design, schnelle Ladezeiten und mobilfreundlich – wir erstellen Ihre perfekte Website.</p>
-            </div>
-            <div class="service">
-                <h3>📱 Apps</h3>
-                <p>Wir entwickeln benutzerfreundliche und leistungsstarke mobile Anwendungen.</p>
-            </div>
-            <div class="service">
-                <h3>⚙️ Automatisierung</h3>
-                <p>Optimieren Sie Geschäftsprozesse mit intelligenten Tools und Automatisierungen.</p>
-            </div>
-            <div class="service">
-                <h3>🤖 KI-Integration</h3>
-                <p>Verwandeln Sie Ihre Plattform mit GPT-gestützter Automatisierung und Chatbots.</p>
+    <!-- Header -->
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-code"></i>MaxWeber
+            </a>
+            <nav class="nav-links">
+                <a href="#home">Start</a>
+                <a href="#services">Dienstleistungen</a>
+                <a href="#skills">Fähigkeiten</a>
+                <a href="#contact">Kontakt</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Full-Stack Entwickler & KI-Spezialist</h1>
+                <div class="typed-text" id="typed-text"></div>
+                <p>Ich erschaffe moderne, leistungsstarke Web-Lösungen, die Ihre Geschäftsprozesse revolutionieren. Von interaktiven Websites bis zu KI-Integrationen - ich mache Ihre digitale Vision Wirklichkeit.</p>
+                <a href="#contact" class="btn">Projekt starten <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
 
-    <section class="about">
-        <h2>Warum wir?</h2>
-        <p>Wir kombinieren kreatives Design mit modernster Technologie, um maßgeschneiderte digitale Lösungen zu schaffen. Unser Ziel: Ihre Vision perfekt umzusetzen.</p>
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <h2 class="section-title">Meine Dienstleistungen</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Webentwicklung</h3>
+                    <p>Moderne, responsive Websites und Webanwendungen mit neuesten Technologien wie React, Vue.js und Angular für optimale Benutzererfahrung.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>KI-Integration</h3>
+                    <p>Intelligente Lösungen mit künstlicher Intelligenz: Chatbots, Empfehlungssysteme, Bilderkennung und Predictive Analytics für Ihr Business.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>App Entwicklung</h3>
+                    <p>Plattformübergreifende Mobile Apps mit React Native und Flutter sowie Progressive Web Apps für maximale Reichweite und Performance.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Performance Optimierung</h3>
+                    <p>Beschleunigung Ihrer Webpräsenz durch Code-Optimierung, Lazy Loading, Caching-Strategien und modernste Performance-Techniken.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Prozessautomatisierung</h3>
+                    <p>Automatisierung von Geschäftsprozessen durch maßgeschneiderte Softwarelösungen, die Effizienz steigern und Kosten senken.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>DevOps & Deployment</h3>
+                    <p>Professionelles Deployment mit CI/CD Pipelines, Containerisierung (Docker), Cloud-Lösungen (AWS, Azure) und Serverless Architekturen.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <div class="container">
+            <h2 class="section-title">Meine Fähigkeiten</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <div class="skill-list">
+                        <div class="skill">HTML5 & CSS3</div>
+                        <div class="skill">JavaScript (ES6+)</div>
+                        <div class="skill">React.js</div>
+                        <div class="skill">Vue.js</div>
+                        <div class="skill">Angular</div>
+                        <div class="skill">SASS/SCSS</div>
+                        <div class="skill">Responsive Design</div>
+                        <div class="skill">WebGL/Three.js</div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>Backend & Datenbanken</h3>
+                    <div class="skill-list">
+                        <div class="skill">Node.js</div>
+                        <div class="skill">Python/Django</div>
+                        <div class="skill">PHP/Laravel</div>
+                        <div class="skill">MongoDB</div>
+                        <div class="skill">PostgreSQL</div>
+                        <div class="skill">MySQL</div>
+                        <div class="skill">GraphQL</div>
+                        <div class="skill">RESTful APIs</div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3>KI & Zukunftstechnologien</h3>
+                    <div class="skill-list">
+                        <div class="skill">TensorFlow.js</div>
+                        <div class="skill">OpenAI Integration</div>
+                        <div class="skill">Machine Learning</div>
+                        <div class="skill">Computer Vision</div>
+                        <div class="skill">NLP</div>
+                        <div class="skill">IoT-Entwicklung</div>
+                        <div class="skill">Blockchain</div>
+                        <div class="skill">Web3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Kontaktieren Sie mich</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Adresse</h3>
+                            <p>Innovationsstraße 42, 10115 Berlin</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h3>Telefon</h3>
+                            <p>+49 30 12345678</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>kontakt@maxweber-dev.de</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3>Arbeitszeiten</h3>
+                            <p>Mo-Fr: 9:00 - 18:00 Uhr</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Betreff</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Nachricht</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Nachricht senden</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>📞 +49 162 451 4836 | ✉️ do84arov@gmail.com</p>
-        <p>© 2025 Dmytro Ovcharov – Alle Rechte vorbehalten</p>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <i class="fas fa-code"></i>MaxWeber
+                    </div>
+                    <p>Ich entwickle digitale Lösungen, die nicht nur funktionieren, sondern begeistern. Mit Leidenschaft für Code und einem Auge für Details bringe ich Ihre Ideen zum Leben.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Links</h3>
+                    <ul>
+                        <li><a href="#home">Start</a></li>
+                        <li><a href="#services">Dienstleistungen</a></li>
+                        <li><a href="#skills">Fähigkeiten</a></li>
+                        <li><a href="#contact">Kontakt</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-services">
+                    <h3>Dienstleistungen</h3>
+                    <ul>
+                        <li><a href="#">Webentwicklung</a></li>
+                        <li><a href="#">App Entwicklung</a></li>
+                        <li><a href="#">KI-Integration</a></li>
+                        <li><a href="#">Prozessautomatisierung</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Max Weber | Full-Stack Entwickler & KI-Spezialist. Alle Rechte vorbehalten.</p>
+            </div>
+        </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Create floating particles for background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size (2px to 5px)
+                const size = Math.random() * 3 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                // Random animation delay
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                // Random opacity
+                particle.style.opacity = Math.random() * 0.5 + 0.2;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Typing animation for hero section
+        function initTypingEffect() {
+            const textElement = document.getElementById('typed-text');
+            const texts = [
+                "Websites die begeistern",
+                "KI-Integration für Ihr Business",
+                "Mobile Apps die überzeugen",
+                "Automatisierung die Zeit spart",
+                "IoT-Lösungen für die Zukunft"
+            ];
+            
+            let currentIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            
+            function type() {
+                const currentText = texts[currentIndex];
+                
+                if (isDeleting) {
+                    // Delete character
+                    textElement.textContent = currentText.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    // Type character
+                    textElement.textContent = currentText.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+                
+                // Determine typing speed
+                let typeSpeed = 100;
+                
+                if (isDeleting) {
+                    typeSpeed /= 2; // Faster deletion
+                }
+                
+                // When word is complete
+                if (!isDeleting && charIndex === currentText.length) {
+                    typeSpeed = 2000; // Pause at end
+                    isDeleting = true;
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    currentIndex = (currentIndex + 1) % texts.length;
+                    typeSpeed = 500;
+                }
+                
+                setTimeout(type, typeSpeed);
+            }
+            
+            type();
+        }
+        
+        // Form submission
+        function handleFormSubmit() {
+            const form = document.getElementById('contactForm');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // In a real application, you would send this data to a server
+                // For this demo, we'll just show an alert
+                alert(`Vielen Dank, ${name}! Ihre Nachricht wurde gesendet. Ich werde mich in Kürze bei Ihnen melden.`);
+                
+                // Reset form
+                form.reset();
+            });
+        }
+        
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            initTypingEffect();
+            handleFormSubmit();
+            
+            // Add scroll animation to sections
+            const observerOptions = {
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('animate__animated');
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 </html>
