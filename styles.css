@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #f2f2f2, #dcdcdc);
+    color: #222;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: #ff6600;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.cta-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+    background: white;
+    color: #ff6600;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.cta-button:hover {
+    transform: scale(1.1);
+}
+
+.features, .about, .contact {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.feature {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 2s forwards;
+}
+
+.slide-in {
+    transform: translateY(30px);
+    opacity: 0;
+    animation: slideIn 2s forwards;
+}
+
+.slide-in-left {
+    transform: translateX(-50px);
+    opacity: 0;
+    animation: slideInLeft 2s forwards;
+}
+
+.slide-in-right {
+    transform: translateX(50px);
+    opacity: 0;
+    animation: slideInRight 2s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
